@@ -1,0 +1,52 @@
+<configuration debug="true">
+
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%date{yyyy-MM-dd HH:mm:ss} | %highlight(%-5level) | %boldYellow(%thread) | %boldGreen(%logger) | %msg%n"/>
+
+
+
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>true</withJansi>
+        <encoder>
+            <pattern>%date{yyyy-MM-dd HH:mm:ss} - [%thread] %highlight(%-5level) %logger{15} - %boldCyan(%msg) %n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="PROJECT" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>true</withJansi>
+        <encoder>
+            <pattern>%date{yyyy-MM-dd HH:mm:ss} - [%thread] %highlight(%-5level) %boldMagenta(%logger{15}) - %boldGreen(%msg) %n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="SQLPRINT" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>true</withJansi>
+        <encoder>
+            <pattern>%date{yyyy-MM-dd HH:mm:ss} - [%thread] %highlight(%-5level) %yellow(%logger{15}) - %yellow(%msg) %n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="HIKARICP" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>true</withJansi>
+        <encoder>
+            <pattern>%date{yyyy-MM-dd HH:mm:ss} - [%thread] %highlight(%-5level) %boldRed(%logger{15}) - %boldBlue(%msg) %n</pattern>
+        </encoder>
+    </appender>
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+    <logger name="com.avcdata" additivity="false" level="DEBUG">
+        <appender-ref ref="PROJECT" />
+    </logger>
+
+    <logger name="com.avcdata.dao" additivity="false" level="DEBUG">
+        <appender-ref ref="SQLPRINT" />
+    </logger>
+
+    <logger name="com.zaxxer.hikari" additivity="false" level="DEBUG">
+        <appender-ref ref="HIKARICP" />
+    </logger>
+
+</configuration>

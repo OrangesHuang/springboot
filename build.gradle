@@ -1,0 +1,65 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        maven { url 'https://plugins.gradle.org/m2/' }  // 用于下载Gradle插件
+        maven { url 'http://jcenter.bintray.com/' }
+        maven { url 'http://repo1.maven.org/maven2/' }
+        maven { url 'http://repo.spring.io/snapshot' }
+        maven { url 'http://repo.spring.io/milestone' }
+        maven { url 'http://repo.spring.io/libs-milestone/' }
+        maven { url 'http://repo.spring.io/release' }
+    }
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE' // org.springframework.boot的构建版本控制
+        classpath 'io.spring.gradle:dependency-management-plugin:1.0.1.RELEASE' // 用于管理jar包之间的依赖问题
+    }
+}
+
+apply plugin: 'java'                            //  java插件，同时也声明是一个java项目
+apply plugin: 'idea'                            //  idea插件，可直接让IDEA集成能力
+apply plugin: 'org.springframework.boot'        //  管理这个组织的jar包插件
+apply plugin: 'io.spring.dependency-management' //  管理jar包之间的依赖关系
+
+
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = file("$buildDir/classes/main/")             //  在idea中build后输出的class目录
+    }
+}
+
+jar {
+    baseName = 'springboot'
+    version = new Date().format("yyyy-MM-dd_HH:mm").toString()  //  根据当前时间控制版本
+    // e.g. Gradle是基于Groovy的构建语言，本身也是JVM语言
+}
+
+bootRun {
+    addResources = false
+    systemProperties = System.properties
+    main = 'com.avcdata.Application'        // 程序运行的主文件，每个项目需指定一个运行入口
+}
+
+repositories {
+    mavenLocal()
+    maven { url 'http://jcenter.bintray.com/' }
+    maven { url 'http://repo1.maven.org/maven2/' }
+    maven { url 'http://repo.spring.io/snapshot' }
+    maven { url 'http://repo.spring.io/libs-milestone/' }
+    maven { url 'http://repo.spring.io/release' }
+    maven { url 'http://repo.spring.io/milestone' }
+}
+
+dependencies {
+    compile 'com.zaxxer:HikariCP:2.6.1'
+    compile 'org.projectlombok:lombok:1.16.12'
+    compile 'mysql:mysql-connector-java:6.0.5'
+
+    compile 'org.springframework.boot:spring-boot-starter-web'
+
+    compile 'org.mybatis.spring.boot:mybatis-spring-boot-starter:1.2.0'
+    compile 'tk.mybatis:mapper-spring-boot-starter:1.0.0'
+    compile 'com.github.pagehelper:pagehelper-spring-boot-starter:1.1.0'
+
+    testCompile ( 'org.springframework.boot:spring-boot-starter-test' )
+}

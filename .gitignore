@@ -1,0 +1,16 @@
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+**/*.iml
+
+# Build
+**/build/
+.gradle/
+out/
+.ideaDataSources/
+target/
+.DS_Store
+data/
+classes/
