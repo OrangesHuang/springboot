@@ -6,13 +6,11 @@
 >
 > 集成了mybatis-spring-boot-starter能力，集成了HikariCp数据库连接池。
 >
-> 引入了spring-boot-starter-data-redis
->
 > 使用到了lombok插件，故在IDEA中开发需要开启注解能力。
 >
-> 警告：启动项目需增加-Dspring.profiles.active=local
-> 需手动修改application-local.yml文件中的spring.database.url以及spring.redis.host为自己的地址。
-> 若不需要redis，则将build.gradle中的compile ( 'org.springframework.boot:spring-boot-starter-data-redis' )注释即可
+> 
+> 需手动修改application.yml文件中的spring.database.url和username,password
+> 
 
 
 
@@ -41,7 +39,7 @@ mapper:
     identity: MYSQL
 ```
 
-application-local.yml配置信息：
+Spring:datasource
 
 ```yaml
 spring:
@@ -56,17 +54,9 @@ spring:
       maximum-pool-size: 15
       minimum-idle: 2
       connection-timeout: 1765000
-  redis:
-    host: localhost
-    port: 6379
-    database: 1
-    pool:
-      min-idle: 5
-      max-idle: 10
 logging:
   # 日志打印级别配置
   config: classpath:logback-local.xml
-
 ```
 
 UserService
@@ -127,6 +117,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 /**
+ *
  * Created by huangcheng on 2017/3/24.
  */
 //继承了通用MyMapper，则可以根据Bean实现简单的增删改查
